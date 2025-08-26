@@ -123,7 +123,7 @@ const Homepage = () => {
               <div className="bg-white p-6 rounded-lg shadow-inner mb-6">
                 <h4 className="font-semibold text-lg mb-2">Consulting Scenario Spotlight</h4>
                 <p className="text-gray-700">
-                  Solving the "Spreadsheet Automation" problem: We'll migrate your data to a secure database and automate the entire process, freeing you from manual entry.
+                  {`Solving the "Spreadsheet Automation" problem: We'll migrate your data to a secure database and automate the entire process, freeing you from manual entry.`}
                 </p>
               </div>
               <Link
@@ -148,7 +148,7 @@ const Homepage = () => {
           rel="noopener noreferrer"
           className="inline-block bg-white text-blue-600 font-bold py-4 px-12 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300"
         >
-          Let's Connect on LinkedIn
+          {`Let's Connect on LinkedIn`}
         </a>
       </section>
     </div>
