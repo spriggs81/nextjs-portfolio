@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import emailjs from '@emailjs/browser';
 
 // API Contract Data for the Contact Page
 const contactContract = {
@@ -103,25 +104,25 @@ const contactContract = {
           "required": true
         },
         {
-          "id": "job_title",
-          "label": "Job Title/Opportunity",
-          "type": "text",
-          "required": false
+            "id": "job_title",
+            "label": "Job Title",
+            "type": "text",
+            "required": true
         },
         {
-          "id": "job_link",
-          "label": "Link to Job Description (Optional)",
-          "type": "text",
-          "required": false
+            "id": "job_link",
+            "label": "Job Description Link",
+            "type": "text",
+            "required": false 
         },
         {
-          "id": "preferred_time_to_chat",
-          "label": "What's your preferred time to chat?",
-          "type": "text",
-          "required": false
+          "id": "message",
+          "label": "Your Message",
+          "type": "textarea",
+          "required": true
         }
       ],
-      "submit_button_text": "Submit"
+      "submit_button_text": "Send Message"
     },
     {
       "form_id": "general",
@@ -153,12 +154,13 @@ const contactContract = {
 
 // You need to install EmailJS and then use the emailjs.init and emailjs.send methods.
 // npm install @emailjs/browser
-import emailjs from '@emailjs/browser';
+// Placeholder for your EmailJS keys from the .env file
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_C_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_C_ID;
+const EMAILJS_TEMPLATE_R_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_R_ID;
+const EMAILJS_TEMPLATE_G_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_G_ID;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-// Placeholder for your EmailJS keys
-const EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID'; // Replace with your Service ID
-const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID'; // Replace with your Template ID
-const EMAILJS_PUBLIC_KEY = 'YOUR_EMAILJS_PUBLIC_KEY'; // Replace with your Public Key
 
 const ContactPage = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -191,7 +193,7 @@ const ContactPage = () => {
           if (field.type === 'text_list') {
             return formState[field.id].some(item => item.trim() !== '');
           }
-          return formState[field.id].trim() !== '';
+          return formState[field.id] && formState[field.id].trim() !== '';
         }
         return true;
       });
@@ -233,17 +235,31 @@ const ContactPage = () => {
         setIsSubmitting(true);
         setStatusMessage('Sending message...');
 
+        // Determine which template to use based on the form ID
+        let templateId;
+        switch (formData.form_id) {
+            case 'consulting':
+                templateId = EMAILJS_TEMPLATE_C_ID;
+                break;
+            case 'recruiter':
+                templateId = EMAILJS_TEMPLATE_R_ID;
+                break;
+            case 'general':
+                templateId = EMAILJS_TEMPLATE_G_ID;
+                break;
+        }
+
         // The form data payload for EmailJS
         const templateParams = {
             from_name: formState.full_name,
             from_email: formState.email_address,
-            // Format challenges array into a human-readable string
+            // Format message based on form type
             message: formData.form_id === 'consulting' ? formState.client_challenges.filter(c => c).join('\n') : formState.message,
             // Include all other fields in the payload
             ...formState
         };
 
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
+        emailjs.send(EMAILJS_SERVICE_ID, templateId, templateParams, EMAILJS_PUBLIC_KEY)
             .then((response) => {
                 console.log('SUCCESS!', response.status, response.text);
                 setStatusMessage('Message sent successfully!');
