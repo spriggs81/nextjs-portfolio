@@ -1,0 +1,107 @@
+// components/ProcessPage.jsx
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+
+// API Contract Data for the page
+const processContract = {
+  "page_title": "Our Process: From Problem to Solution",
+  "meta_description": "Our transparent, step-by-step process for working with clients, from initial consultation to final solution delivery.",
+  "page_header": {
+    "title": "Our Process: From Problem to Solution",
+    "subtitle": "A Simple, Transparent Roadmap for Your Project"
+  },
+  "process_steps": [
+    {
+      "step_number": 1,
+      "title": "The Initial Conversation",
+      "description": "Our journey begins with a free, no-pressure consultation. This is not a sales pitch; it's a dedicated conversation where we listen to your business challenges, understand your goals, and ask clarifying questions to get to the core of your needs. The goal is to determine if we are a good fit and to build a foundation of mutual understanding."
+    },
+    {
+      "step_number": 2,
+      "title": "The Tailored Proposal",
+      "description": "After our conversation, we'll create a detailed and custom-tailored proposal. This document will be your roadmap, clearly outlining our recommended solution, a defined project scope, a realistic timeline, and a transparent, fixed price. You'll know exactly what to expect, with no hidden fees or surprises."
+    },
+    {
+      "step_number": 3,
+      "title": "The Collaborative Project",
+      "description": "Once the proposal is signed, the project officially begins. We kick things off with a clear plan and a defined communication schedule. You will be an integral part of the process, involved in key decisions, and we'll keep you updated on our progress every step of the way. We believe in building solutions with you, not just for you."
+    },
+    {
+      "step_number": 4,
+      "title": "The Final Hand-off & Support",
+      "description": "The project isn't finished until you are completely satisfied. We'll deliver the final solution along with comprehensive documentation and training to ensure you can manage the new system with confidence. We also offer flexible support options to give you long-term peace of mind, so you're never left on your own."
+    }
+  ],
+  "cta_section": {
+    "title": "Ready to Start Your Project?",
+    "description": "Let's begin the conversation. Your first step to a more efficient business is just a click away.",
+    "cta_button_text": "Book Your Free Consultation",
+    "cta_link": "/contact"
+  }
+};
+
+const ProcessPage = () => {
+  const { page_header, process_steps, cta_section } = processContract;
+
+  return (
+    <div className="bg-gray-50 text-gray-800 font-sans min-h-screen pt-16">
+      
+      {/* Page Header Section */}
+      <section className="py-20 px-8 bg-blue-600 text-white text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            {page_header.title}
+          </h1>
+          <h2 className="text-lg md:text-xl max-w-3xl mx-auto">
+            {page_header.subtitle}
+          </h2>
+        </div>
+      </section>
+
+      {/* Process Steps Section */}
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-6xl mx-auto space-y-12">
+          {process_steps.map((step) => (
+            <div 
+              key={step.step_number} 
+              className="relative p-8 md:p-12 rounded-lg shadow-lg bg-gray-100 transform transition-transform duration-300 hover:scale-105"
+            >
+              <div className="absolute top-0 left-0 bg-blue-600 text-white w-12 h-12 rounded-br-lg rounded-tl-lg flex items-center justify-center text-lg font-bold">
+                {step.step_number}
+              </div>
+              <h3 className="text-2xl font-bold mb-4 mt-8 md:mt-0">
+                {step.title}
+              </h3>
+              <p className="text-gray-700 text-lg">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Final Call-to-Action Section */}
+      <section className="py-20 px-8 bg-blue-600 text-white text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8">
+            {cta_section.title}
+          </h2>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+            {cta_section.description}
+          </p>
+          <Link
+            href={cta_section.cta_link}
+            className="inline-block bg-white text-blue-600 font-bold py-4 px-12 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300"
+          >
+            {cta_section.cta_button_text}
+          </Link>
+        </div>
+      </section>
+
+    </div>
+  );
+};
+
+export default ProcessPage;
