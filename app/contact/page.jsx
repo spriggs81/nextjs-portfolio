@@ -104,18 +104,6 @@ const contactContract = {
           "required": true
         },
         {
-            "id": "job_title",
-            "label": "Job Title",
-            "type": "text",
-            "required": true
-        },
-        {
-            "id": "job_link",
-            "label": "Job Description Link",
-            "type": "text",
-            "required": false 
-        },
-        {
           "id": "message",
           "label": "Your Message",
           "type": "textarea",
@@ -157,8 +145,7 @@ const contactContract = {
 // Placeholder for your EmailJS keys from the .env file
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_C_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_C_ID;
-const EMAILJS_TEMPLATE_R_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_R_ID;
-const EMAILJS_TEMPLATE_G_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_G_ID;
+const EMAILJS_TEMPLATE_R_G_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_R_G_ID; // New combined template ID
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
 
@@ -242,10 +229,8 @@ const ContactPage = () => {
                 templateId = EMAILJS_TEMPLATE_C_ID;
                 break;
             case 'recruiter':
-                templateId = EMAILJS_TEMPLATE_R_ID;
-                break;
             case 'general':
-                templateId = EMAILJS_TEMPLATE_G_ID;
+                templateId = EMAILJS_TEMPLATE_R_G_ID;
                 break;
         }
 
