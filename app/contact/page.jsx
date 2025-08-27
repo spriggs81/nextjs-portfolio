@@ -243,7 +243,7 @@ const ContactPage = () => {
             // Include all other fields in the payload
             ...formState
         };
-
+        console.log("templateId: ",templateId)
         emailjs.send(EMAILJS_SERVICE_ID, templateId, templateParams, EMAILJS_PUBLIC_KEY)
             .then((response) => {
                 console.log('SUCCESS!', response.status, response.text);
