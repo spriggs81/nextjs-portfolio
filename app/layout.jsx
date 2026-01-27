@@ -1,20 +1,24 @@
 // app/layout.jsx
 import Navbar from './components/Navbar';
-import './globals.css'; // Make sure your globals.css file is imported here
+import './globals.css';
 
 export const metadata = {
-  title: 'John Spriggs Consulting',
-  description: 'Operational and data automation specialist for businesses.',
+  title: "John Spriggs | Production Support Engineer",
+  description:
+    "Production-focused Support Engineer with deep experience in SaaS systems, databases, and incident resolution.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-white text-gray-800">
         <Navbar />
-        <main className="mt-16"> {/* Add margin to prevent content from hiding behind the fixed Navbar */}
+        <main className="mt-16">
           {children}
         </main>
+        <footer className="py-8 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} John Spriggs
+        </footer>
       </body>
     </html>
   );
